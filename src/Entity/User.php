@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column]
-    private bool $isVerified = false;
+    private bool $isVerified = true;
 
     public function __construct()
     {

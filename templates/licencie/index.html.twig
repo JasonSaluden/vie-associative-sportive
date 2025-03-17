@@ -3,39 +3,59 @@
 {% block title %}Licencie index{% endblock %}
 
 {% block body %}
-    <h1>Licencie index</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Liste des Licenciés</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomLicencie</th>
-                <th>PrenomLicencie</th>
-                <th>PhotoLicencie</th>
-                <th>DateNaissance</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for licencie in licencies %}
-            <tr>
-                <td>{{ licencie.id }}</td>
-                <td>{{ licencie.nomLicencie }}</td>
-                <td>{{ licencie.prenomLicencie }}</td>
-                <td>{{ licencie.photoLicencie }}</td>
-                <td>{{ licencie.dateNaissance ? licencie.dateNaissance|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_licencie_show', {'id': licencie.id}) }}">show</a>
-                    <a href="{{ path('app_licencie_edit', {'id': licencie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mb-3">
+            <a href="{{ path('app_licencie_new') }}" class="btn btn-primary">Créer un nouveau licencié</a>
+        </div>
 
-    <a href="{{ path('app_licencie_new') }}">Create new</a>
+        <div class="mb-3">
+            <a href="{{ path('app_club_index') }}" class="btn btn-secondary">Retour à la liste des clubs</a>
+        </div>
+
+        <div class="mb-3">
+            <a href="{{ path('app_equipe_index') }}" class="btn btn-secondary">Retour à la liste des équipes</a>
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom du Licencié</th>
+                    <th>Prénom</th>
+                    <th>Photo</th>
+                    <th>Date de Naissance</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for licencie in licencies %}
+                <tr>
+                    <td>{{ licencie.id }}</td>
+                    <td>{{ licencie.nomLicencie }}</td>
+                    <td>{{ licencie.prenomLicencie }}</td>
+                    <td>
+                        {% if licencie.photoLicencie %}
+                            <img src="{{ asset('uploads/photos/' ~ licencie.photoLicencie) }}" alt="Photo de {{ licencie.nomLicencie }}" width="50">
+                        {% else %}
+                            <span>Aucune photo</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ licencie.dateNaissance ? licencie.dateNaissance|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_licencie_show', {'id': licencie.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_licencie_edit', {'id': licencie.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun licencié trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_licencie_new') }}" class="btn btn-primary">Créer un nouveau licencié</a>
+    </div>
 {% endblock %}

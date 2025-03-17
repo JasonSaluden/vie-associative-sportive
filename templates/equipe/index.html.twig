@@ -3,33 +3,48 @@
 {% block title %}Equipe index{% endblock %}
 
 {% block body %}
-    <h1>Equipe index</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Liste des Équipes</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomEquipe</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for equipe in equipes %}
-            <tr>
-                <td>{{ equipe.id }}</td>
-                <td>{{ equipe.nomEquipe }}</td>
-                <td>
-                    <a href="{{ path('app_equipe_show', {'id': equipe.id}) }}">show</a>
-                    <a href="{{ path('app_equipe_edit', {'id': equipe.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mb-3">
+            <a href="{{ path('app_equipe_new') }}" class="btn btn-primary">Créer une nouvelle équipe</a>
+        </div>
+        
+        <div class="mb-3">
+            <a href="{{ path('app_club_index') }}" class="btn btn-secondary">Retour à la liste des clubs</a>
+        </div>
 
-    <a href="{{ path('app_equipe_new') }}">Create new</a>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom de l'Équipe</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for equipe in equipes %}
+                <tr>
+                    <td>{{ equipe.id }}</td>
+                    <td>{{ equipe.nomEquipe }}</td>
+                    <td>
+                        <a href="{{ path('app_equipe_show', {'id': equipe.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_equipe_edit', {'id': equipe.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center">Aucune équipe trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <div class="mb-3">
+        <a href="{{ path('app_licencie_index') }}" class="btn btn-secondary">Consulter la liste des licenciés</a>
+    </div>
+
+        <a href="{{ path('app_equipe_new') }}" class="btn btn-primary">Créer une nouvelle équipe</a>
+    </div>
+
+
 {% endblock %}
